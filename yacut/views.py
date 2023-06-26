@@ -5,10 +5,10 @@ import string
 
 from flask import flash, redirect, render_template
 
+from yacut import app, db
+from yacut.constants import LENGTH
 from yacut.forms import URL_Form
 from yacut.models import URLMap
-
-from yacut import app, db
 
 
 def get_db_object(column, query):
@@ -18,14 +18,12 @@ def get_db_object(column, query):
 
 def check_short_id(short_id):
     """Проверка уникальности нового адреса."""
-    if get_db_object(URLMap.short, short_id).first() is None:
-        return True
-    return False
+    return get_db_object(URLMap.short, short_id).first() is None
 
 
 def get_unique_short_id():
     """Формирование коротких идентификаторов переменной длины."""
-    short_id = "".join(random.choice(string.ascii_letters + string.digits) for i in range(6))
+    short_id = "".join(random.choice(string.ascii_letters + string.digits) for i in range(LENGTH))
     if check_short_id(short_id):
         return short_id
     return get_unique_short_id()

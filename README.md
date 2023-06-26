@@ -46,16 +46,15 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-4. Создать в корневой директории файл .env со следующим наполнением:
+4. Создать в корневой директории файл `.env` с переменными окружения для работы 
+с базой данных по примеру файла `.env.sample`
 
+5. Создать миграции
 ```
-FLASK_APP=yacut
-FLASK_ENV=development
-DATABASE_URI=sqlite:///db.sqlite3
-SECRET_KEY=<ваш_секретный_ключ>
+flask db migrate -m "new comment"
 ```
 
-5. Запуск проекта
+6. Запуск проекта
 
 ```
 flask run
